@@ -1,0 +1,34 @@
+version: '3.6'
+services:
+
+  product-command-db-container:
+    container_name: product-command-db-container
+    networks:
+      - product-app
+    restart: always
+    image: "mongo:latest"
+    ports:
+      - "27018:27017"
+    volumes:
+      - product_command_db_data:/data/db
+
+  product-query-db-container:
+    container_name: product-query-db-container
+    networks:
+      - product-app
+    restart: always
+    image: "mongo:latest"
+    ports:
+      - "27019:27017"
+    volumes:
+    - product_query_db_data:/data/db
+
+
+
+volumes:
+  product_query_db_data:
+  product_command_db_data:
+
+networks:
+  product-app:
+    driver: bridge

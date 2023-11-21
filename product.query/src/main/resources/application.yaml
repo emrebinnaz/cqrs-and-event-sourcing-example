@@ -1,0 +1,12 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /api/v1
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27019
+      database: product_query_management
+
+    
