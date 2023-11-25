@@ -12,7 +12,7 @@ import com.example.product.command.events.ProductDiscountedEvent;
 import com.example.product.command.events.ProductStatusChangedEvent;
 import com.example.product.command.events.ProductStockChangedEvent;
 import com.example.product.command.events.ProductUpdatedEvent;
-import com.example.product.command.exception.ProdcutIsNotAvailableException;
+import com.example.product.command.exception.ProductIsNotAvailableException;
 import com.example.product.command.exception.ProductIsAlreadyDeletedException;
 import com.example.product.command.models.enums.ProductStatus;
 
@@ -89,13 +89,13 @@ public class ProductAggregate extends AggregateRoot {
             throw new ProductIsAlreadyDeletedException("ERROR -> You cannot apply discount to deleted product.");
         }
         if(this.status.equals(ProductStatus.NOT_AVAILABLE)) {
-            throw new ProdcutIsNotAvailableException("ERROR -> You cannot apply discount to not available product. Please make your product available first.");
+            throw new ProductIsNotAvailableException("ERROR -> You cannot apply discount to not available product. Please make your product available first.");
         }
         raise(ProductDiscountedEvent.createFrom(command));
     }
     @Override
     protected void apply(ProductDiscountedEvent event) {
-        
+        //for now, there is nothing to do in this method.
     }
     
 }

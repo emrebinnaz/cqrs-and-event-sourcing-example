@@ -2,9 +2,9 @@ package com.example.product.command.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class ProdcutIsNotAvailableException extends BaseException{
+public class ProductIsNotAvailableException extends BaseException{
 
-    public ProdcutIsNotAvailableException(String message) {
+    public ProductIsNotAvailableException(String message) {
         super(message);
         this.httpStatus = HttpStatus.BAD_REQUEST;
         //TODO Auto-generated constructor stub
