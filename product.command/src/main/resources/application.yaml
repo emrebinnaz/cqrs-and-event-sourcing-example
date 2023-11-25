@@ -1,5 +1,7 @@
 server:
   port: 8084
+  servlet:
+    context-path: /api/v1
 spring:
   data:
     mongodb:
@@ -10,6 +12,6 @@ spring:
     producer:
       bootstrap-servers: localhost:29093
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.example.product.command.serializers.CustomSerializer
 
-    # product.command.serializers.CustomSerializer
+    
