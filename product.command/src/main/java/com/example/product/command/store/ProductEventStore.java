@@ -44,7 +44,7 @@ public class ProductEventStore implements EventStore{
 
         EventModel persistedEventModel = eventStoreRepository.save(eventModel);
         if ( !persistedEventModel.getId().isEmpty()) {
-           // eventProducer.produce(event, event.getClass().getSimpleName());
+            eventProducer.produce(event, event.getClass().getSimpleName());
         }
     }
 

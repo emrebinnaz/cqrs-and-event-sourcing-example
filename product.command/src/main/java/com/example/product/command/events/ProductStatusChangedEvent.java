@@ -7,11 +7,11 @@ import lombok.Getter;
 
 @Getter
 public final class ProductStatusChangedEvent extends BaseEvent{
-    private ProductStatus status;
+    private String status;
 
     private ProductStatusChangedEvent(ProductStatusChangedCommand command) {
         super(command.getId());
-        this.status = command.getStatus();
+        this.status = command.getStatus().name();
     }
 
     public static ProductStatusChangedEvent createFrom(ProductStatusChangedCommand command) {

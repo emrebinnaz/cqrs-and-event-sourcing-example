@@ -1,8 +1,37 @@
 version: '3.6'
 services:
-
-  product-command-db-container:
-    container_name: product-command-db-container
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    networks:
+      - product-app
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+    volumes:
+      - "zookeeper_data:/var/lib/zoo_Data"
+  
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    networks:
+      - product-app
+    depends_on:
+      - zookeeper
+    volumes:
+      - "kafka_data:/var/lib/kafka_data"
+    ports:
+      - 29093:29093
+      - 9093:9093
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9093,PLAINTEXT_HOST://localhost:29093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  
+  product-command-db:
+    container_name: product-command-db
     networks:
       - product-app
     restart: always
@@ -12,8 +41,8 @@ services:
     volumes:
       - product_command_db_data:/data/db
 
-  product-query-db-container:
-    container_name: product-query-db-container
+  product-query-db:
+    container_name: product-query-db
     networks:
       - product-app
     restart: always
@@ -23,11 +52,11 @@ services:
     volumes:
     - product_query_db_data:/data/db
 
-
-
 volumes:
   product_query_db_data:
   product_command_db_data:
+  zookeeper_data:
+  kafka_data:
 
 networks:
   product-app:

@@ -12,8 +12,8 @@ import com.example.product.command.events.ProductDiscountedEvent;
 import com.example.product.command.events.ProductStatusChangedEvent;
 import com.example.product.command.events.ProductStockChangedEvent;
 import com.example.product.command.events.ProductUpdatedEvent;
-import com.example.product.command.exception.ProductIsNotAvailableException;
 import com.example.product.command.exception.ProductIsAlreadyDeletedException;
+import com.example.product.command.exception.ProductIsNotAvailableException;
 import com.example.product.command.models.enums.ProductStatus;
 
 
@@ -21,7 +21,7 @@ public class ProductAggregate extends AggregateRoot {
 
     private ProductStatus status;
     private boolean isDeleted;
-    private Integer numberInStock; 
+    private Integer numberInStock;
 
     public ProductAggregate(ProductAddedCommand command) {
         ProductAddedEvent event = ProductAddedEvent.createFrom(command);
@@ -32,7 +32,7 @@ public class ProductAggregate extends AggregateRoot {
     }
     @Override
     protected void apply(ProductAddedEvent event) {
-        this.status = event.getStatus();
+        this.status = ProductStatus.valueOf(event.getStatus());
         this.isDeleted = false;
         this.numberInStock = event.getNumberInStock();
     }
@@ -57,7 +57,7 @@ public class ProductAggregate extends AggregateRoot {
     
     @Override
     protected void apply(ProductUpdatedEvent event) {
-        this.status = event.getStatus();
+        this.status = ProductStatus.valueOf(event.getStatus());
         this.numberInStock = event.getNumberInStock();
     }
 
@@ -67,7 +67,7 @@ public class ProductAggregate extends AggregateRoot {
     }
     @Override
     protected void apply(ProductStatusChangedEvent event) {
-        this.status = event.getStatus();
+        this.status = ProductStatus.valueOf(event.getStatus());
     }
 
     public void changeProductStock(ProductStockChangedCommand command) {

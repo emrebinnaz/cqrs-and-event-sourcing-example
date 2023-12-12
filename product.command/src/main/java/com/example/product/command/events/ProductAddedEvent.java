@@ -12,7 +12,7 @@ import lombok.Getter;
 public final class ProductAddedEvent extends BaseEvent{
     private String name;
     private String description;
-    private ProductStatus status;
+    private String status;
     private Date creationDate;
     private Integer numberInStock;
     private BigDecimal price;
@@ -23,7 +23,7 @@ public final class ProductAddedEvent extends BaseEvent{
         this.creationDate = command.getCreationDate();
         this.description = command.getDescription();
         this.name = command.getName();
-        this.status = command.getStatus();
+        this.status = command.getStatus().name();
         this.numberInStock = command.getNumberInStock();
         this.discountRatio = command.getDiscountRatio();
         this.price = command.getPrice();

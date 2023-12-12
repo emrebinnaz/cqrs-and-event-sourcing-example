@@ -8,5 +8,19 @@ spring:
       host: localhost
       port: 27019
       database: product_query_management
+  kafka:
+    listener:
+      ack-mode: MANUAL_IMMEDIATE
+    consumer:
+      bootstrap-servers: localhost:29093
+      group-id: productAppConsumer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.example.product.query.deserializers.CustomDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
 
     
