@@ -16,7 +16,7 @@ spring:
       group-id: productAppConsumer
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: com.example.product.query.deserializers.CustomDeserializer
+      value-deserializer: com.example.product.query.infrastructure.deserializers.CustomDeserializer
       properties:
         spring:
           json:
