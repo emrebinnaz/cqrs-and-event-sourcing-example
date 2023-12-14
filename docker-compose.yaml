@@ -30,6 +30,22 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
   
+  product-command-app:
+    container_name: product-command-app
+    networks:
+      - product-app
+    restart: always
+    image: product-command-app
+    build: ./
+    environment:
+      - spring.kafka.producer.bootstrap-servers=kafka:9093
+      - spring.data.mongodb.host=product-command-db
+      - spring.data.mongodb.port=27017
+    ports:
+      - "8086:8084"
+    depends_on:
+      - product-command-db
+
   product-command-db:
     container_name: product-command-db
     networks:
@@ -40,6 +56,7 @@ services:
       - "27018:27017"
     volumes:
       - product_command_db_data:/data/db
+  
 
   product-query-db:
     container_name: product-query-db
@@ -51,6 +68,22 @@ services:
       - "27019:27017"
     volumes:
     - product_query_db_data:/data/db
+  
+  product-query-app:
+    container_name: product-query-app
+    networks:
+      - product-app
+    restart: always
+    image: product-query-app
+    build: ./
+    environment:
+      - spring.kafka.consumer.bootstrap-servers=kafka:9093
+      - spring.data.mongodb.host=product-query-db
+      - spring.data.mongodb.port=27017
+    ports:
+      - "8087:8085"
+    depends_on:
+      - product-query-db
 
 volumes:
   product_query_db_data:
