@@ -1,8 +1,8 @@
 # CQRS and Event Sourcing Example With Spring Boot
-<img src="screenshots/project_diagram.png" alt="" width="1300" height="650">
+<img src="screenshots/project_diagram.png" alt="" width="1300" height="680">
 
 ### About the Project 
-- The main purpose of the project is demonstrating how to use <b>CQRS</b>(Command Query Responsibility Segregation) and <b>Event Sourcing</b> architectural patterns on microservices. 
+- The main purpose of the project is demonstrating how to use <b>CQRS</b>(Command Query Responsibility Segregation) and <b>Event Sourcing</b> architectural patterns on microservices which are designed for managing the lifecycle of product-related information.
 - During the implementation of project, following technologies have been used:
   * Java 17
   * Spring Boot
@@ -12,8 +12,14 @@
   * Swagger UI
   * Maven
   * Docker
-  
-  
+- The command microservice plays a pivotal role in handling a set of commands tailored to the intricacies of product management. These commands:
+  * ProductAddedCommand
+  * ProductDeletedCommand
+  * ProductUpdatedCommand
+  * ProductStockChangedCommand
+  * ProductDiscountedCommand
+  * ProductStatusChangedCommand
+- On the other hand the query microservice focuses on efficiently retrieving and presenting product-related information. The query microservice is designed to handle various queries, enabling clients to seamlessly  access the data they need. These queries can be accessed from the <b>"REST API Endpoints"</b> section below.
 
 ### How to run Project ? 
 
